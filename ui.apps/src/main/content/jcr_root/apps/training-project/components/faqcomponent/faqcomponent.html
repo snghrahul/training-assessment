@@ -1,0 +1,10 @@
+<h1> html called</h1>
+<sly data-sly-use.model="com.training.aem.core.models.FaqModel">
+    <div data-sly-list.faq="${model.faqsList}">
+        <div>
+            <h3>${faq.question}</h3>
+            <p>${faq.answer}</p>
+        </div>
+    </div>
+</sly>
+
