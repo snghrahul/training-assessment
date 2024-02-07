@@ -12,7 +12,7 @@ public class ProductInfoServiceImpl implements ProductInfoService{
     @Reference
     ProductService productService;
     @Override
-    public ProductDetailsEntity getProductInfo(int productId) throws Exception {
+    public ProductDetailsEntity getProductInfo(String productId) throws Exception {
         ProductDetailsEntity productDetails = new ProductDetailsEntity();
         productDetails = productService.getFakeApiData("https://fakestoreapi.com/products/" + productId);
         return productDetails;

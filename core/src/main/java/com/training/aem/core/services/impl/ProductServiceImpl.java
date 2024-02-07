@@ -1,6 +1,7 @@
 package com.training.aem.core.services.impl;
 
 
+import com.adobe.xfa.Int;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.training.aem.core.Constant.CommonConstant;
 import com.training.aem.core.bean.ClientResponse;
@@ -24,12 +25,15 @@ public final class ProductServiceImpl implements ProductService{
                     .getClientResponse(CommonConstant.GET,apiUrl,null,null);
             if (clientResponse != null && clientResponse.getStatusCode() == HttpServletResponse.SC_OK){
                 JSONObject responseObj = new JSONObject(clientResponse.getData());
-//                ObjectMapper objectMapper = new ObjectMapper();
-//                productEntity = objectMapper.readValue(responseObj.toString(), ProductDetailsEntity.class);
 
                 productEntity.setId((Integer) responseObj.get("id"));
                 productEntity.setImage((String) responseObj.get("image"));
-                productEntity.setPrice((Double) responseObj.get("price"));
+                if(responseObj.get("price") instanceof Integer ){
+                    productEntity.setPrice((Integer) responseObj.get("price"));
+                }else{
+
+                    productEntity.setPrice((Double) responseObj.get("price"));
+                }
             }
         } catch (Exception e) {
             throw new RuntimeException(e);
