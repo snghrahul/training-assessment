@@ -28,6 +28,7 @@ public final class ProductServiceImpl implements ProductService{
 
                 productEntity.setId((Integer) responseObj.get("id"));
                 productEntity.setImage((String) responseObj.get("image"));
+                productEntity.setCategory((String) responseObj.get("category"));
                 if(responseObj.get("price") instanceof Integer ){
                     productEntity.setPrice((Integer) responseObj.get("price"));
                 }else{

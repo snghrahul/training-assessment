@@ -177,7 +177,7 @@ Bundle-Category: ${componentGroupName}
 # reproducible builds (https://github.com/bndtools/bnd/issues/3521)
 -noextraheaders: true
 -snapshot: SNAPSHOT
-
+Sling-ContextAware-Configuration-Classes:com.training.aem.core.config.CAConfiguration
 Bundle-DocURL:
 -plugin org.apache.sling.caconfig.bndplugin.ConfigurationClassScannerPlugin
 -plugin org.apache.sling.bnd.models.ModelsScannerPlugin
@@ -755,6 +755,13 @@ Bundle-DocURL:
                 <version>1.0.1</version>
                 <scope>test</scope>
             </dependency>
+
+                <dependency>
+                    <groupId>org.projectlombok</groupId>
+                    <artifactId>lombok</artifactId>
+                    <version>1.18.24</version>
+                    <scope>provided</scope>
+                </dependency>
         </dependencies>
     </dependencyManagement>
 
