@@ -34,9 +34,6 @@ public class TempServlet extends SlingAllMethodsServlet {
         String folderPath = "/content/dam/training-project/temp.xlsx";
         List<ExcelRowDataEntity> rowDataEntityList = excelProcessingWorkflowService.processExcelFile(folderPath);
         nodeCreationService.CreateNodeFromExcel(rowDataEntityList);
-
         response.getWriter().write("heyy");
-
-
     }
 }

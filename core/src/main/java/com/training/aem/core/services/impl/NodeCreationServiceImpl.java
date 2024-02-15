@@ -26,29 +26,22 @@ public class NodeCreationServiceImpl implements NodeCreationService{
             resourceResolver = getResourceResolver();
             Resource parentResouce = resourceResolver.getResource("/content/training-project");
             Node parentNode = parentResouce.adaptTo(Node.class);
-            boolean flag = false;
             if(parentNode != null){
                 for(ExcelRowDataEntity rowData : rowDataEntitList){
-                    if(flag == false){
                         String nodeName = generateUniqueNodeName();
                         Node node = parentNode.addNode(nodeName,"nt:unstructured");
                         node.setProperty("columnName1", rowData.getColumn1());
                         node.setProperty("columnName2",rowData.getColumn2());
-                    }
-                    flag = true;
                 }
                 resourceResolver.commit();
             }
-
         }catch (Exception e){
             e.printStackTrace();
-
         }finally {
             if(resourceResolver != null && resourceResolver.isLive()){
                 resourceResolver.close();
             }
         }
-
         }
 
     @Override
