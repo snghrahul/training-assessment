@@ -22,6 +22,7 @@ import org.json.JSONObject;
 import org.osgi.service.component.annotations.Component;
 
 import javax.servlet.http.HttpServletResponse;
+import javax.swing.table.TableCellEditor;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -47,9 +48,6 @@ public class SortedProductServiceImpl implements SortedProductsService{
                 ProductDetailsEntity productDetailsEntity = new Gson().fromJson(jsonObject.toString(), ProductDetailsEntity.class);
                 productDetailsList.add(productDetailsEntity);
             }
-
-
-
         } catch (IOException e) {
             throw new RuntimeException(e);
         } catch (JSONException e) {
@@ -77,11 +75,16 @@ public class SortedProductServiceImpl implements SortedProductsService{
         return productDetailsList;
     }
     @Override
-    public List<ProductDetailsEntity> getSortedProducts() {
+    public List<ProductDetailsEntity> getSortedProducts(String sortType) {
+
 
         List<ProductDetailsEntity> products = getAllProducts("https://fakestoreapi.com/products/");
-        Collections.sort(products, new ProductDetailsEntityComparator());
+        Collections.sort(products, new ProductDetailsEntityComparator(sortType));
 
         return products;
+    }
+
+    public String getSortType(){
+        return null;
     }
 }
