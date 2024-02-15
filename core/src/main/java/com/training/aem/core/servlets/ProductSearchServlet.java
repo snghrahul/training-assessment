@@ -31,26 +31,15 @@ public class ProductSearchServlet extends SlingAllMethodsServlet {
 
     @Override
     protected void doGet(SlingHttpServletRequest request,SlingHttpServletResponse response) throws ServletException, IOException {
-//        String query = request.getParameter("query");
-//        if(query != null && query.length() > 3){
             String sortType = request.getParameter("sortType");
-            List<ProductDetailsEntity> suggestions = searchProducts(sortType);
-
-
-            String jsonResponse = new Gson().toJson(suggestions);
-//        JsonArray jsonObject = new JsonArray();
+            List<ProductDetailsEntity> filteredProducts = filterProductsBasedOnSortType(sortType);
+            String jsonResponse = new Gson().toJson(filteredProducts);
             response.setContentType("application/json");
-        response.getWriter().write(jsonResponse);
-
-
-//        }
+            response.getWriter().write(jsonResponse);
     }
 
-    private List<ProductDetailsEntity> searchProducts(String sortType){
-
-        List<ProductDetailsEntity> allProducts = sortedProductsService.getSortedProducts(sortType);
-        return allProducts;
-
-
+    private List<ProductDetailsEntity> filterProductsBasedOnSortType(String sortType){
+        List<ProductDetailsEntity> fetchedSortedAllProducts = sortedProductsService.getSortedProducts(sortType);
+        return fetchedSortedAllProducts;
     }
 }
