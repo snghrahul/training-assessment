@@ -11,10 +11,11 @@ import com.day.cq.search.result.SearchResult;
 import org.apache.commons.lang.StringUtils;
 import org.apache.sling.api.SlingHttpServletRequest;
 import org.apache.sling.api.SlingHttpServletResponse;
-import org.apache.sling.api.resource.ResourceResolver;
+import org.apache.sling.api.resource.*;
 import org.apache.sling.api.servlets.HttpConstants;
 import org.apache.sling.api.servlets.SlingAllMethodsServlet;
 import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.annotations.Reference;
 
 import javax.jcr.RepositoryException;
 import javax.jcr.Session;
@@ -33,33 +34,45 @@ import java.util.Map;
 })
 public class ProductSearchByQueryServlet extends SlingAllMethodsServlet {
 
+    @Reference
+    ResourceResolverFactory resourceResolverFactory;
+
     @Override
     protected void doGet(SlingHttpServletRequest request,SlingHttpServletResponse response) throws ServletException, IOException {
+        List<String> suggestions;
         String query = request.getParameter("query");
         if(StringUtils.isNotBlank(query) && query.length() > 3){
             try {
-                List<String> suggestions = performSearch(request.getResourceResolver(),query);
-            } catch (RepositoryException e) {
+                    suggestions = performSearch(request.getResourceResolver(),query);
+
+            } catch (LoginException | RepositoryException e) {
                 throw new RuntimeException(e);
             }
+            response.getWriter().write(suggestions.toString());
+
         }
 
     }
-    private List<String> performSearch(ResourceResolver resourceResolver,String query) throws RepositoryException {
+    private List<String> performSearch(ResourceResolver resourceResolver,String query) throws RepositoryException, LoginException {
         List<String> suggestions = new ArrayList<>();
+//        resourceResolver = getResourceResolver();
+        QueryBuilder queryBuilder = resourceResolver.adaptTo(QueryBuilder.class);
         Map<String,Object> queryParams = new HashMap<>();
-        queryParams.put("type","dam:Assest");
-        queryParams.put("path","/content/dam/we-retail");
+        queryParams.put("type","dam:Assets");
+        queryParams.put("path","/var/commerce/products/we-retail");
         queryParams.put("fulltext",query);
-//        PredicateGroup predicateGroup = PredicateGroup.create(queryParams);
-         Query query1 = resourceResolver.adaptTo(QueryBuilder.class).createQuery(PredicateGroup.create(queryParams),resourceResolver.adaptTo(Session.class));
+
+        Query query1 = queryBuilder.createQuery(PredicateGroup.create(queryParams),resourceResolver.adaptTo(Session.class));
         SearchResult result = query1.getResult();
+        Resource resource = null;
+
         for(Hit hit : result.getHits()){
             String path = hit.getPath();
-            AssetManager assetManager = resourceResolver.adaptTo(AssetManager.class);
-            Asset asset = assetManager.getAssetForBinary(path);
-            suggestions.add(asset.getName());
-
+            resource = resourceResolver.getResource(path);
+            ValueMap vm = resource.getValueMap();
+            if(vm.containsKey("jcr:title")){
+                suggestions.add(vm.get("jcr:title",String.class));
+            }
         }
         return suggestions;
     }
