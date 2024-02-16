@@ -18,25 +18,13 @@ public class SortedProductsModel {
 
     @OSGiService
     SortedProductsService sortedProductsService;
-
     @ValueMapValue
-    String ascending;
+    private String sortType;
 
-    @ValueMapValue
-    String descending;
-
-
-    List<ProductDetailsEntity> productDetails = new ArrayList<>();
     List<ProductDetailsEntity> sortedProductDetails = new ArrayList<>();
 
-//    public List<ProductDetailsEntity> getProductDetails(){
-//
-//        productDetails = sortedProductsService.getAllProducts("https://fakestoreapi.com/products/");
-//        return productDetails;
-//    }
-
     public List<ProductDetailsEntity> getSortedProductDetails(){
-        sortedProductDetails = sortedProductsService.getSortedProducts();
+        sortedProductDetails = sortedProductsService.getSortedProducts(sortType);
         return sortedProductDetails;
     }
 
