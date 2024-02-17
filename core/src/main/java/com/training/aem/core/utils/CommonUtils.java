@@ -37,9 +37,7 @@ public final class CommonUtils {
             if(token != null){
                 httpGet.setHeader(HttpHeaders.AUTHORIZATION,BEARER + token);
             }
-
             clientResponse = executeRequest(httpGet);
-
         }
         if (method.equals(CommonConstant.POST)) {
             final HttpPost httpPost = new HttpPost(apiUrl);
@@ -50,16 +48,12 @@ public final class CommonUtils {
                 try {
                     httpPost.setEntity(new StringEntity(requestBody));
                 } catch (UnsupportedEncodingException e) {
-
-                }
+                 }
             }
             clientResponse = executeRequest(httpPost);
         }
         return clientResponse;
-
-
     }
-
 
     public static ClientResponse executeRequest(final HttpUriRequest request) throws Exception {
         String result = StringUtils.EMPTY;
@@ -73,17 +67,12 @@ public final class CommonUtils {
                 result = EntityUtils.toString(httpEntity,
                         StandardCharsets.UTF_8);
                 clientResponse.setData(result);
-
                 EntityUtils.consume(httpEntity);
             }
             return clientResponse;
-
         } catch (ClientProtocolException e) {
-
         } catch (IOException e) {
-
         }
         return null;
     }
-
 }

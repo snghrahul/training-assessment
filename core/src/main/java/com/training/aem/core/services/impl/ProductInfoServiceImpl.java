@@ -1,6 +1,6 @@
 package com.training.aem.core.services.impl;
 
-import com.training.aem.core.models.ProductDetailsEntity;
+import com.training.aem.core.bean.ProductDetailsEntity;
 import com.training.aem.core.services.ProductInfoService;
 import com.training.aem.core.services.ProductService;
 import org.osgi.service.component.annotations.Component;
