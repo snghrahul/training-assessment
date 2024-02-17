@@ -1,4 +1,4 @@
-package com.training.aem.core.models;
+package com.training.aem.core.bean;
 
 public class ProductDetailsEntity {
 

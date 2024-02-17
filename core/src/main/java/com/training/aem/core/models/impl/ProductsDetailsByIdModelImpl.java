@@ -1,8 +1,9 @@
-package com.training.aem.core.models;
-
+package com.training.aem.core.models.impl;
 
 import com.day.cq.wcm.api.Page;
 import com.day.cq.wcm.api.PageManager;
+import com.training.aem.core.bean.ProductDetailsEntity;
+import com.training.aem.core.models.ProductDetailsByIdModel;
 import com.training.aem.core.services.ProductService;
 import org.apache.sling.api.SlingHttpServletRequest;
 import org.apache.sling.api.resource.ResourceResolver;
@@ -14,9 +15,10 @@ import org.apache.sling.models.annotations.injectorspecific.SlingObject;
 
 import javax.annotation.PostConstruct;
 import org.apache.sling.api.resource.Resource;
-
-@Model(adaptables = SlingHttpServletRequest.class,defaultInjectionStrategy = DefaultInjectionStrategy.OPTIONAL)
-public class ProductDetailsModel {
+@Model(adaptables = SlingHttpServletRequest.class,
+        adapters = {ProductDetailsByIdModel.class},
+        defaultInjectionStrategy = DefaultInjectionStrategy.OPTIONAL)
+public class ProductsDetailsByIdModelImpl implements ProductDetailsByIdModel {
 
     @OSGiService
     ProductService productService;
@@ -24,14 +26,10 @@ public class ProductDetailsModel {
     @SlingObject
     SlingHttpServletRequest request;
 
-   @OSGiService
+    @OSGiService
     ResourceResolver resourceResolver;
-
-
     @OSGiService
     PageManager pageManager;
-
-
 
     private ProductDetailsEntity productDetails;
     private Page currentPage;
@@ -50,7 +48,10 @@ public class ProductDetailsModel {
         }
         productDetails = productService.getFakeApiData("https://fakestoreapi.com/products/" + productId);
     }
+    @Override
     public ProductDetailsEntity getProductDetails() {
         return productDetails;
     }
+
+
 }
