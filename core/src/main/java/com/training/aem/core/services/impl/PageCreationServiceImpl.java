@@ -4,7 +4,7 @@ package com.training.aem.core.services.impl;
 import com.day.cq.wcm.api.Page;
 import com.day.cq.wcm.api.PageManager;
 import com.day.cq.wcm.api.WCMException;
-import com.training.aem.core.models.ProductDetailsEntity;
+import com.training.aem.core.bean.ProductDetailsEntity;
 import com.training.aem.core.services.PageCreationService;
 import org.apache.sling.api.SlingHttpServletRequest;
 import org.apache.sling.api.resource.*;
