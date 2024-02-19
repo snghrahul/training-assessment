@@ -1,15 +1,12 @@
 package com.training.aem.core.servlets;
 
 import com.google.gson.Gson;
-import com.google.gson.JsonArray;
-import com.training.aem.core.models.ProductDetailsEntity;
+import com.training.aem.core.bean.ProductDetailsEntity;
 import com.training.aem.core.services.SortedProductsService;
 import org.apache.sling.api.SlingHttpServletRequest;
 import org.apache.sling.api.SlingHttpServletResponse;
 import org.apache.sling.api.servlets.HttpConstants;
 import org.apache.sling.api.servlets.SlingAllMethodsServlet;
-import org.json.JSONException;
-import org.json.JSONObject;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
