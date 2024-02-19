@@ -34,7 +34,6 @@ public class DynamicFlowModel{
         }
     return "";
     }
-
     public Page getParentScriptPage(Page currentPage){
         if(currentPage != null){
             ValueMap properties = currentPage.getProperties();

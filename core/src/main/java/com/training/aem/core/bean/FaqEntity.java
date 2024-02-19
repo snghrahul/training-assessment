@@ -1,4 +1,4 @@
-package com.training.aem.core.models;
+package com.training.aem.core.bean;
 
 public class FaqEntity {
 
@@ -8,13 +8,10 @@ public class FaqEntity {
     public FaqEntity(){
 
     }
-
-
     public FaqEntity(String question, String answer) {
         this.question = question;
         this.answer = answer;
     }
-
     public void setQuestion(String question) {
         this.question = question;
     }

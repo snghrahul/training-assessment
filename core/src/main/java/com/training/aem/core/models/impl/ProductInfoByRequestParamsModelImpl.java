@@ -1,13 +1,12 @@
-package com.training.aem.core.models;
-
+package com.training.aem.core.models.impl;
 
 import com.day.cq.wcm.api.Page;
 import com.day.cq.wcm.api.PageManager;
+import com.training.aem.core.bean.ProductDetailsEntity;
+import com.training.aem.core.models.ProductInfoByRequestParamsModel;
 import com.training.aem.core.services.ProductInfoService;
 import org.apache.sling.api.SlingHttpServletRequest;
 import org.apache.sling.api.request.RequestPathInfo;
-import org.apache.sling.api.resource.Resource;
-import org.apache.sling.api.resource.ValueMap;
 import org.apache.sling.models.annotations.DefaultInjectionStrategy;
 import org.apache.sling.models.annotations.Model;
 import org.apache.sling.models.annotations.injectorspecific.OSGiService;
@@ -16,36 +15,29 @@ import org.apache.sling.models.annotations.injectorspecific.ScriptVariable;
 import javax.annotation.PostConstruct;
 
 @Model(adaptables = {SlingHttpServletRequest.class},
+        adapters = {ProductInfoByRequestParamsModel.class},
         defaultInjectionStrategy = DefaultInjectionStrategy.OPTIONAL)
-public class ProductInfoModel {
-
+public class ProductInfoByRequestParamsModelImpl  implements ProductInfoByRequestParamsModel{
     @OSGiService
     private ProductInfoService productInfoService;
-
-     @OSGiService
-     PageManager pageManager;
     @ScriptVariable
     SlingHttpServletRequest request;
 
     private ProductDetailsEntity productDetails;
-    private Page currentPage;
-    private String productId;
 
     @PostConstruct
     protected void init() throws Exception {
 
-//        StringBuilder fullUrl = new StringBuilder(request.getRequestURL().toString());
         RequestPathInfo pathInfo = request.getRequestPathInfo();
         String urlSuffix = pathInfo.getSuffix();
         String productId = urlSuffix.substring(1);
-
         productDetails = productInfoService.getProductInfo(productId);
     }
     public ProductDetailsEntity getProductDetails() {
         return productDetails;
     }
 
-//    public String toGetProductId(){
+//          public String toGetProductId(){
 //        Resource currentResource = request.getResource();
 //        pageManager = currentResource.getResourceResolver().adaptTo(PageManager.class);
 //        currentPage = pageManager.getContainingPage(currentResource);
@@ -57,6 +49,4 @@ public class ProductInfoModel {
 //        }
 //        return productId;
 //    }
-
-
 }

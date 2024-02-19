@@ -1,8 +1,7 @@
 package com.training.aem.core.models.impl;
 
-
-//import com.training.aem.core.services.FaqService;
-import com.training.aem.core.models.FaqEntity;
+import com.training.aem.core.bean.FaqEntity;
+import com.training.aem.core.models.FaqModel;
 import org.apache.sling.api.SlingHttpServletRequest;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.api.resource.ValueMap;
@@ -15,9 +14,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Model(adaptables = {SlingHttpServletRequest.class},
+        adapters = {FaqModel.class},
         defaultInjectionStrategy = DefaultInjectionStrategy.OPTIONAL)
-public class FaqModel {
-
+public class FaqModelImpl implements FaqModel{
     @ChildResource
     private Resource faqs;
     @ValueMapValue
@@ -28,6 +27,7 @@ public class FaqModel {
 
     List<FaqEntity> faqsList = new ArrayList<>();
 
+    @Override
     public List<FaqEntity> getFaqsList() {
         if(faqs != null && faqs.hasChildren()){
             for(Resource resource : faqs.getChildren()){
@@ -40,9 +40,5 @@ public class FaqModel {
         }
         return faqsList;
     }
-
-
-    //    public void addFaq(String question , String answer){
-//        faqService.addFaq(question,answer);
-//    }
 }
+

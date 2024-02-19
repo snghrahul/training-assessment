@@ -1,10 +1,20 @@
-package com.training.aem.core.models;
+package com.training.aem.core.bean;
 
 public class ProductDetailsEntity {
 
     int id;
     double price;
     String image;
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
+    String category;
 
     public int getId() {
         return id;
@@ -33,10 +43,11 @@ public class ProductDetailsEntity {
     public ProductDetailsEntity(){
 
     }
-    public ProductDetailsEntity(int productId, double price, String image) {
+    public ProductDetailsEntity(int productId, double price, String image, String category) {
         this.id = productId;
         this.price = price;
         this.image = image;
+        this.category = category;
     }
 
 }
