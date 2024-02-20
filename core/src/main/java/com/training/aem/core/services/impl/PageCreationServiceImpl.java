@@ -1,6 +1,9 @@
 package com.training.aem.core.services.impl;
 
 
+import com.day.cq.replication.ReplicationActionType;
+import com.day.cq.replication.ReplicationException;
+import com.day.cq.replication.Replicator;
 import com.day.cq.wcm.api.Page;
 import com.day.cq.wcm.api.PageManager;
 import com.day.cq.wcm.api.WCMException;
@@ -14,6 +17,7 @@ import org.osgi.service.component.annotations.Reference;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.jcr.Session;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -24,6 +28,10 @@ public class PageCreationServiceImpl implements PageCreationService{
 
     @Reference
     ResourceResolverFactory resourceResolverFactory;
+    @Reference
+    private Replicator replicator;
+
+    private final Logger logger = LoggerFactory.getLogger(ApiServiceImpl.class);
     @Override
     public void createPages(ProductDetailsEntity data) throws PersistenceException {
         String parentPath = "/content/training-project/us";
@@ -38,9 +46,7 @@ public class PageCreationServiceImpl implements PageCreationService{
         final Logger logger = LoggerFactory.getLogger(PageCreationService.class);
 
         try{
-            Map<String,Object> param = new HashMap<>();
-            param.put(resourceResolverFactory.SUBSERVICE,"rahul");
-            resourceResolver = resourceResolverFactory.getServiceResourceResolver(param);
+            resourceResolver = getResourceResolver();
 
             Resource parentResource = resourceResolver.getResource(parentPath);
             if(parentResource == null){
@@ -51,14 +57,34 @@ public class PageCreationServiceImpl implements PageCreationService{
             PageManager pageManager = resourceResolver.adaptTo(PageManager.class);
             Page newPage = pageManager.create(parentPath,pageName,templatePath,"page 1 created",true);
 
+            if(newPage != null){
+                Session session = resourceResolver.adaptTo(Session.class);
+                managePageActivation(session,newPage.getPath());
+            }
+
         } catch (WCMException | LoginException e) {
             throw new RuntimeException(e);
         }
         finally {
             resourceResolver.commit();
         }
+    }
 
+    private void managePageActivation(Session session, String path){
+        try{
+            if (session != null){
+                replicator.replicate(session, ReplicationActionType.ACTIVATE,path);
+                logger.info("Page activated: ", path);
+            }
+        } catch (ReplicationException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
+    public ResourceResolver getResourceResolver() throws LoginException {
+        Map<String, Object> map  = new HashMap<>();
+        map.put(ResourceResolverFactory.SUBSERVICE,"rahul");
+        return resourceResolverFactory.getServiceResourceResolver(map);
     }
 
 }
