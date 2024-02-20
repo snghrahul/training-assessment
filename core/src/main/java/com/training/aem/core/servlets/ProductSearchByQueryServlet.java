@@ -61,6 +61,7 @@ public class ProductSearchByQueryServlet extends SlingAllMethodsServlet {
         queryParams.put("type","dam:Assets");
         queryParams.put("path","/var/commerce/products/we-retail");
         queryParams.put("fulltext",query + "*");
+        queryParams.put("p.limit","-1");
 
         Query query1 = queryBuilder.createQuery(PredicateGroup.create(queryParams),resourceResolver.adaptTo(Session.class));
         SearchResult result = query1.getResult();
