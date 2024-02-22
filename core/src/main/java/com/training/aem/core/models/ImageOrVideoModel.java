@@ -13,15 +13,22 @@ public class ImageOrVideoModel {
     @ValueMapValue
     String video;
 
-    public String getImage() {
-        return image;
-    }
+    @ValueMapValue
+    String assetType;
 
     @ValueMapValue
     private String image;
 
-    @PostConstruct
-    protected void init(){
-
+    public String getImage() {
+        return image;
     }
+    public String getAssetType() {
+        return assetType;
+    }
+
+    public String getVideo() {
+        return video;
+    }
+
+
 }

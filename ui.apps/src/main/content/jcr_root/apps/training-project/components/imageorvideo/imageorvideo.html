@@ -1,14 +1,14 @@
-<h1> This is image and Video component </h1>
+
 <sly data-sly-use.model="com.training.aem.core.models.ImageOrVideoModel">
 
-    <div data-sly-test="${model.contentType}">
-        <p>Content Type: ${model.contentType}</p>
-        <div data-sly-test="${model.contentType == 'image'}">
-            <img src="${model.image}">
+    <div data-sly-test="${model.assetType}">
+        <p>Asset Type: ${model.assetType}</p>
+        <div data-sly-test="${model.assetType == 'image'}">
+            <img src="${model.image @ extension='jpg'}">
         </div>
     </div>
 
-    <div data-sly-test="${!model.contentType}">
+    <div data-sly-test="${!model.assetType}">
         <p>No content type specified.</p>
     </div>
 
