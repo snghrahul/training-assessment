@@ -1,0 +1,35 @@
+
+<sly data-sly-use.clientlib="/libs/granite/sightly/templates/clientlib.html">
+    <sly data-sly-call="${clientlib.all @ categories='filtered-products'}"/>
+</sly>
+
+<div class="filter-buttons">
+    <button id="lowToHighBtn">Low to High</button>
+    <button id="highToLowBtn">High to Low</button>
+    <button id="mostRecentBtn">Most Recent</button>
+  </div>
+  <div id="productContainer" class="carousel slide" data-ride="carousel"></div>
+
+  <script id="product-template" type="text/x-handlebars-template">
+    <div class="carousel-item">
+    {{#each products}}
+    <div>
+        <h1>{{id}}</h1>
+        <h3>{{price}}</h3>
+        <h3>{{category}}</h3>
+        <img src="{{image}}" >
+       </div>
+    {{/each}}
+    </div>
+    <a class="carousel-control-prev" href="#productCarousel" role="button" data-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="sr-only">Previous</span>
+      </a>
+      <a class="carousel-control-next" href="#productCarousel" role="button" data-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="sr-only">Next</span>
+      </a>
+  </script>
+  
+  
+  

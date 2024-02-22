@@ -27,7 +27,6 @@ import java.util.List;
 
 })
 public class AlertContentFragmentServlet extends SlingSafeMethodsServlet {
-
     @Reference
     ContentFragmentService contentFragmentService;
     @Override

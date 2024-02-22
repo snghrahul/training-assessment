@@ -1,0 +1,72 @@
+.carousel-item {
+    text-align: center;
+  }
+  
+  .carousel-item img {
+    max-width: 100%;
+    height: auto;
+  }
+  /* Set the maximum width of the images inside the carousel */
+.carousel-inner img {
+    max-width: 100%;
+    height: auto;
+  }
+  
+  /* Center the text inside the carousel items */
+  .carousel-inner .carousel-item {
+    text-align: center;
+  }
+  /* Ensure images in cards maintain aspect ratio */
+  /* Style the filter buttons */
+.filter-buttons {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px; /* Add some space between the buttons and the product cards */
+  }
+  
+  .filter-buttons button {
+    padding: 10px 20px;
+    margin: 0 10px;
+    font-size: 16px;
+    background-color: #007bff; /* Blue color for the buttons */
+    color: #fff; /* White text color */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease; /* Smooth transition for hover effect */
+  }
+  
+  .filter-buttons button:hover {
+    background-color: #0056b3; /* Darker blue color on hover */
+  }
+
+  /* Style the filter buttons */
+.filter-buttons {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px; /* Add some space between the buttons and the product cards */
+  }
+  
+  .filter-buttons button {
+    padding: 10px 20px;
+    margin: 0 10px;
+    font-size: 16px;
+    background-color: #007bff; /* Blue color for the buttons */
+    color: #fff; /* White text color */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease; /* Smooth transition for hover effect */
+  }
+  
+  /* Highlight the active button */
+  .filter-buttons button.active {
+    background-color: black; /* Darker blue color for active button */
+  }
+  
+  
+
+  
+  
+
+  
