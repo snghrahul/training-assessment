@@ -1,0 +1,57 @@
+.container {
+  max-width: 500px; /* Adjust the max-width as needed */
+  margin: auto; /* Center the container horizontally */
+  padding: 20px; /* Add padding for spacing */
+}
+
+.form-group {
+  margin-bottom: 20px; /* Add spacing between form groups */
+}
+
+label {
+  font-weight: bold; /* Make labels bold */
+}
+
+.form-control {
+  width: 100%; /* Make the input field full-width */
+  padding: 10px; /* Add padding inside the input field */
+  font-size: 16px; /* Set font size */
+  border-radius: 5px; /* Add border radius */
+  border: 1px solid #ced4da; /* Add border */
+}
+
+/* Style the input field when it is focused */
+.form-control:focus {
+  border-color: #007bff; /* Change border color on focus */
+  outline: 0; /* Remove the default outline */
+}
+
+/* CSS for the data container and items */
+.container {
+  max-width: 500px; /* Adjust as needed */
+  margin: auto; /* Center the container horizontally */
+  padding: 20px; /* Add padding for spacing */
+}
+
+.data-item {
+  margin-bottom: 10px; /* Add spacing between data items */
+  padding: 10px; /* Add padding for each data item */
+  border: 1px solid #ced4da; /* Add border */
+  border-radius: 5px; /* Add border radius */
+  background-color: #f8f9fa; /* Background color */
+}
+/* Style for the response items */
+.response-item {
+  margin-bottom: 10px; /* Add spacing between items */
+  padding: 5px 10px; /* Add padding */
+  border: 1px solid #ccc; /* Add border */
+  border-radius: 5px; /* Add border radius */
+}
+/* Hover effect */
+.response-item:hover {
+  background-color: #007bff; /* Change background color on hover */
+  color: #fff;
+  cursor: pointer; /* Show pointer cursor on hover */
+}
+
+
