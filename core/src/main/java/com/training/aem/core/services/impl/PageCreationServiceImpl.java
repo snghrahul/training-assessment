@@ -1,6 +1,7 @@
 package com.training.aem.core.services.impl;
 
 
+import com.adobe.granite.taskmanagement.TaskManagerException;
 import com.day.cq.replication.ReplicationActionType;
 import com.day.cq.replication.ReplicationException;
 import com.day.cq.replication.Replicator;
@@ -9,6 +10,7 @@ import com.day.cq.wcm.api.PageManager;
 import com.day.cq.wcm.api.WCMException;
 import com.training.aem.core.bean.ProductDetailsEntity;
 import com.training.aem.core.services.PageCreationService;
+import com.training.aem.core.services.TaskNotificationService;
 import org.apache.sling.api.SlingHttpServletRequest;
 import org.apache.sling.api.resource.*;
 import org.apache.sling.models.annotations.injectorspecific.SlingObject;
@@ -30,6 +32,9 @@ public class PageCreationServiceImpl implements PageCreationService{
     ResourceResolverFactory resourceResolverFactory;
     @Reference
     private Replicator replicator;
+
+    @Reference
+    TaskNotificationService taskNotificationService;
 
     private final Logger logger = LoggerFactory.getLogger(ApiServiceImpl.class);
     @Override
@@ -60,12 +65,12 @@ public class PageCreationServiceImpl implements PageCreationService{
             if(newPage != null){
                 Session session = resourceResolver.adaptTo(Session.class);
                 managePageActivation(session,newPage.getPath());
+                taskNotificationService.setTaskNotification(newPage.getPath());
             }
 
-        } catch (WCMException | LoginException e) {
+        } catch (WCMException | LoginException |TaskManagerException e) {
             throw new RuntimeException(e);
-        }
-        finally {
+        } finally {
             resourceResolver.commit();
         }
     }
