@@ -1,1 +1,13 @@
-<h1>heyy </h1>
+<sly data-sly-use.clientlib="/libs/granite/sightly/templates/clientlib.html">
+    <sly data-sly-call="${clientlib.all @ categories='alert-content-fragment'}"/>
+</sly>
+
+<!-- Your HTML -->
+<h1> Alert </h1>
+<div class="card" id="alertCard">
+    <div id="contentFragmentData" class="content">Content goes here</div>
+    <div class="buttons">
+        <button id="dismissButton" class="button">Dismiss</button>
+        <button id="closeButton" class="button">Close</button>
+    </div>
+</div>
