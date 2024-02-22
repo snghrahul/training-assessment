@@ -2,6 +2,7 @@ package com.training.aem.core.servlets;
 
 import com.adobe.cq.dam.cfm.ContentFragmentManager;
 import com.adobe.cq.wcm.core.components.models.contentfragment.ContentFragmentList;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 import com.training.aem.core.Constant.CommonConstant;
 import com.training.aem.core.bean.AlertContentFragmentEntity;
@@ -37,6 +38,7 @@ public class AlertContentFragmentServlet extends SlingSafeMethodsServlet {
             Gson gson = new Gson();
             String json = gson.toJson(contents);
             response.getWriter().write(json);
+//            new ObjectMapper().writeValue(response.getOutputStream(), contents);
         } catch (LoginException e) {
             throw new RuntimeException(e);
         }

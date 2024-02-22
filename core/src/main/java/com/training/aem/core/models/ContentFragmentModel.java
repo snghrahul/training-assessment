@@ -11,17 +11,9 @@ import org.osgi.service.component.annotations.Reference;
 import java.util.ArrayList;
 import java.util.List;
 
-@Model(adaptables = {SlingHttpServletRequest.class},
-        defaultInjectionStrategy = DefaultInjectionStrategy.OPTIONAL)
-    public class ContentFragmentModel {
 
-    @Reference
-    ContentFragmentService contentFragmentService;
+    public interface ContentFragmentModel {
+        List<AlertContentFragmentEntity>  getAllContentFragments();
 
-    List<AlertContentFragmentEntity> contentFragmentList = new ArrayList<>();
 
-    public List<AlertContentFragmentEntity> getAllContentFragment() throws LoginException {
-        contentFragmentList = contentFragmentService.getContentFragmentData();
-        return contentFragmentList;
-    }
 }
