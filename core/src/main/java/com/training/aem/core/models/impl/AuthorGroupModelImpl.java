@@ -37,10 +37,6 @@ public class AuthorGroupModelImpl implements AuthorGroupModel{
     String group;
     @Override
     public String getAllUsers() {
-        String authorGroup = "content-authors";
-        String newUser = "rahul123";
-
-//        List<String> allMembers = authorGroupService.isUserInGroup(newUser,authorGroup);
 
         List<String> memberslIst = new ArrayList<>();
         try{

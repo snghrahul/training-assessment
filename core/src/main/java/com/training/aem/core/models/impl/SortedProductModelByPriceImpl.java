@@ -25,7 +25,6 @@ public class SortedProductModelByPriceImpl implements SortedProductModelByPrice{
     List<ProductDetailsEntity> sortedProductList = new ArrayList<>();
 
     public List<ProductDetailsEntity> getSortedProductDetailsByPrice(){
-        sortedProductList = sortedProductsService.getSortedProducts(sortType);
-        return sortedProductList;
+        return sortedProductsService.getSortedProducts(sortType);
     }
 }
