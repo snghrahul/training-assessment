@@ -1,98 +1,73 @@
-// Function to fetch data from the server and render it
-function fetchDataAndRender() {
-  fetch("/bin/getAllContentFragments")
-      .then(response => {
-          if (!response.ok) {
-              throw new Error("Network response was not ok");
-          }
-          return response.json();
-      })
-      .then(data => {
-          console.log("Data fetched successfully:", data);
-          renderData(data);
-          saveDataToLocalStorage(data);
-      })
-      .catch(error => {
-          console.error("Error occurred while fetching data:", error);
-          alert("Error occurred while fetching data. Please try again later.");
-      });
-}
+console.log("alert");
 
-$.ajax({
-  type: "GET",
-  url: "/bin/getAllContentFragments",
-  success: function(response) {
-      console.log(JSON.parse(response));
-      var responseData = JSON.parse(response);
-      console.log(responseData);
-      displayContentData(responseData);
-      saveDataToLocalStorage(responseData);
-  },
-  error: function() {
-      alert("Error occurred while fetching data.");
-  }
-});
-// Your existing displayContentData function
-function displayContentData(data) {
-  var container = document.getElementById("contentFragmentData");
-  
-  data.forEach((element) => {
-      var title = element.title;
-      var message = element.message;
-
-      var itemContainer = document.createElement('div');
-      var titleElement = document.createElement('h3');
-      var messageElement = document.createElement('p');
-
-      titleElement.textContent = title;
-      messageElement.textContent = message;
-
-      itemContainer.appendChild(titleElement);
-      itemContainer.appendChild(messageElement);
-      container.appendChild(itemContainer);
+$(document).ready(function() {
+var jsonData;
+  $.ajax({
+      type: "GET", 
+      url: "/bin/getAllContentFragments",
+      success: function(response) {
+          // Handle the successful response from the servlet
+          console.log(response);
+          var jsonArray = JSON.parse(response);
+          localStorage.setItem('jsonArray',JSON.stringify(jsonArray))
+          // console.log("heyy data is ",localStorage.getItem('jsonArray'));
+          // jsonData = JSON.parse(localStorage.getItem('jsonArray'))
+          showdata(jsonArray);
+         
+          // You can update the UI or perform any action with the response data here
+      },
+      error: function(xhr, status, error) {
+          // Handle errors
+          console.error(xhr.responseText);
+      }
   });
-}
 
-// Function to save data to localStorage
-function saveDataToLocalStorage(data) {
-  localStorage.setItem('alertData', JSON.stringify(data));
-}
+  $("#closeButton").on("click", function() {
+    console.log("heyy");
+    $("#alertCard").hide();
+  });
 
-// Function to retrieve data from localStorage
-function getDataFromLocalStorage() {
-  var storedData = localStorage.getItem('alertData');
-  return storedData ? JSON.parse(storedData) : null;
-}
-
-// Function to remove the topmost data from localStorage
-function removeTopMostDataFromLocalStorage() {
-  var storedData = getDataFromLocalStorage();
-  if (storedData && storedData.length > 0) {
-      storedData.shift(); // Remove the first item
-      localStorage.setItem('alertData', JSON.stringify(storedData));
-      displayContentData(storedData); // Re-display the remaining data
-  } else {
-      console.log("No data found in localStorage.");
-  }
-}
-
-
-$("#dismissButton").on("click", function() {
-  removeTopMostDataFromLocalStorage();
+  $('#dismissButton').click(function() {
+    // console.log("heyyy", jsonData.shift());
+    var dataString = localStorage.getItem('jsonArray');
+    var dataArray = JSON.parse(dataString) || [];
+    dataArray.shift();
+    localStorage.setItem('jsonArray',JSON.stringify(dataArray));
+    var container = document.getElementById('contentFragmentData');
+    var firstDiv = container.querySelector('div');
+   
+    
+    if (firstDiv) {
+        container.removeChild(firstDiv);
+        console.log(dataArray.length);
+    }
+    if(dataArray.length <= 0){
+      $("#alertCard").hide();
+     
+    }
+    showdata(dataArray)
+    
+});
 });
 
-// Event listener for close button
-$("#closeButton").on("click", function() {
-  console.log("heyy");
-  $("#alertCard").hide();
-});
+function showdata(jsonData){
+  var container = document.getElementById('contentFragmentData');
+    container.innerHTML = '';
+    jsonData.forEach(function(item) {
+        var div = document.createElement('div');
+        var titleElement = document.createElement('h2');
+        var messageElement = document.createElement('p');
+        titleElement.textContent = item.title;
+        messageElement.textContent = item.message;
 
-// On page load
-document.addEventListener("DOMContentLoaded", function() {
-  var storedData = getDataFromLocalStorage();
-  if (storedData) {
-      displayContentData(storedData);
-  } else {
-      fetchDataAndRender();
-  }
-});
+        div.appendChild(titleElement);
+        div.appendChild(messageElement);
+    
+        container.appendChild(div);
+    });
+}
+
+
+
+
+
