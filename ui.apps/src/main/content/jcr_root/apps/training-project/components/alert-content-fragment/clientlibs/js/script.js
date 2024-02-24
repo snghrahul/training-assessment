@@ -31,21 +31,31 @@ var jsonData;
     // console.log("heyyy", jsonData.shift());
     var dataString = localStorage.getItem('jsonArray');
     var dataArray = JSON.parse(dataString) || [];
-    dataArray.shift();
-    localStorage.setItem('jsonArray',JSON.stringify(dataArray));
-    var container = document.getElementById('contentFragmentData');
-    var firstDiv = container.querySelector('div');
-   
-    
-    if (firstDiv) {
-        container.removeChild(firstDiv);
-        console.log(dataArray.length);
-    }
-    if(dataArray.length <= 0){
-      $("#alertCard").hide();
+
+    console.log("length is :", dataArray.length);
+    if(dataArray.length >0){
+        if(dataArray.length == 1){
+        console.log("heyyy else")
+      var div = document.getElementById('buttonsDiv');
+      div.innerHTML = "No data to display";
+      $("#buttons").hide();
+      }
+      dataArray.shift();
+      localStorage.setItem('jsonArray',JSON.stringify(dataArray));
+      var container = document.getElementById('contentFragmentData');
+      var firstDiv = container.querySelector('div');
      
+      if (firstDiv) {
+          container.removeChild(firstDiv);
+          console.log(dataArray.length);
+      }
+      showdata(dataArray)
+    }else{
+      
     }
-    showdata(dataArray)
+    
+     
+    
     
 });
 });
