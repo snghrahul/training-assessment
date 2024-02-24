@@ -1,6 +1,6 @@
 <sly data-sly-use.model="com.training.aem.core.models.ProductDetailsByIdModel">
 
-<h1>${model.productDetails.id}</h1>
+<h1>${caconfig["com.training.aem.core.config.CAConfiguration"].price} ${model.productDetails.id}</h1>
 <h3>${model.productDetails.price}</h3>
 <img src="${model.productDetails.image}"></img>
 
