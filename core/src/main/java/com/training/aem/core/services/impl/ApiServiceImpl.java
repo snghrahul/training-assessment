@@ -28,31 +28,11 @@ public class ApiServiceImpl implements ApiService {
 
     @Reference
     PageCreationService pageCreationService;
-
     @Reference
     ProductService productService;
-
-
-
-
-    @Reference
-    ResourceResolverFactory resourceResolverFactory;
-
-    @Reference
-    AgentManager agentManager;
-
-
-    ProductDetailsEntity productDetails = new ProductDetailsEntity();
-
     @Override
     public void fetchDataAndCreatePages() throws Exception {
-
-        String parentPath = "/content/training-project/us";
-        productDetails = productService.getFakeApiData("https://fakestoreapi.com/products/1");
+        ProductDetailsEntity productDetails = productService.getFakeApiData("https://fakestoreapi.com/products/1");
         pageCreationService.createPages(productDetails);
-
-
     }
-
-
 }
