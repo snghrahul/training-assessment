@@ -19,30 +19,28 @@ public class FetchProductScheduler implements Runnable{
     private ApiService apiService;
     @Reference
     private Scheduler scheduler;
-    private final Logger logger = LoggerFactory.getLogger(getClass());
+    private final Logger logger = LoggerFactory.getLogger(FetchProductScheduler.class);
+    private SchedulerConfig config;
 
     @Activate
     protected void active(SchedulerConfig config)  {
-//        getAllData(config);
+
         logger.info("active");
     }
     private void getAllData(SchedulerConfig config){
-        ScheduleOptions scheduleOptions = scheduler.EXPR(config.scheduler_expression());
+        ScheduleOptions scheduleOptions = scheduler.EXPR(config.cron_expression());
         scheduleOptions.canRunConcurrently(false);
         scheduler.schedule(this,scheduleOptions);
         try {
             apiService.fetchDataAndCreatePages();
+            logger.info("api called");
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }
     @Override
     public void run() {
-        logger.info("Custom Scheduler added");
-        try {
-            apiService.fetchDataAndCreatePages();
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
+        logger.info("scheduler is running");
+        getAllData(config);
     }
 }

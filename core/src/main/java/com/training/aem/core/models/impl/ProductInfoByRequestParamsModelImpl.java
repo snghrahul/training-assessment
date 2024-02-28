@@ -36,17 +36,4 @@ public class ProductInfoByRequestParamsModelImpl  implements ProductInfoByReques
     public ProductDetailsEntity getProductDetails() {
         return productDetails;
     }
-
-//          public String toGetProductId(){
-//        Resource currentResource = request.getResource();
-//        pageManager = currentResource.getResourceResolver().adaptTo(PageManager.class);
-//        currentPage = pageManager.getContainingPage(currentResource);
-//        if(currentPage != null){
-//            ValueMap properties = currentPage.getProperties();
-//            if(properties.containsKey("productId")){
-//                productId = properties.get("productId",String.class);
-//            }
-//        }
-//        return productId;
-//    }
 }
