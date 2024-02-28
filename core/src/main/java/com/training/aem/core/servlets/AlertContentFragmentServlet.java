@@ -24,25 +24,21 @@ import java.util.List;
 @Component(service = {Servlet.class},property = {
         CommonConstant.SLING_SERVLET_PATH + "/bin/getAllContentFragments",
         CommonConstant.SLING_SERVLET_METHOD + HttpConstants.METHOD_GET
-
 })
 public class AlertContentFragmentServlet extends SlingSafeMethodsServlet {
     @Reference
     ContentFragmentService contentFragmentService;
     @Override
     protected void doGet(SlingHttpServletRequest request, SlingHttpServletResponse response) throws ServletException, IOException {
-        String parentPath = "/content/dam/training-project/content-fragment";
         try {
             List<AlertContentFragmentEntity> contents = contentFragmentService.getContentFragmentData();
             Gson gson = new Gson();
             String json = gson.toJson(contents);
             response.getWriter().write(json);
-//            new ObjectMapper().writeValue(response.getOutputStream(), contents);
         } catch (LoginException e) {
-            throw new RuntimeException(e);
+            String errorMessage;
+            errorMessage = "Unable to obtain resource resolver" + e.getMessage();
+            throw new RuntimeException(errorMessage,e);
         }
-
-
-
     }
 }

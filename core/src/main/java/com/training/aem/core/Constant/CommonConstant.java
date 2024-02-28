@@ -26,5 +26,6 @@ public final class CommonConstant {
     public static final String OFFSET = "offset";
     public static final String SLING_SERVLET_PATH = "sling.servlet.paths=";
     public static final String SLING_SERVLET_METHOD = "sling.servlet.methods=";
+    public static final String CONTENT_FRAGMENT_PARENT_PATH = "/content/dam/training-project/content-fragment";
 
 }
