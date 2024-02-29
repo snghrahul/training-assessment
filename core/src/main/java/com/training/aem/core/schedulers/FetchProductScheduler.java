@@ -1,6 +1,8 @@
 package com.training.aem.core.schedulers;
 
 import com.training.aem.core.services.ApiService;
+import org.apache.sling.commons.scheduler.ScheduleOptions;
+import org.apache.sling.commons.scheduler.Scheduler;
 import org.osgi.service.component.annotations.Activate;
 import org.osgi.service.component.annotations.Component;
 
@@ -14,23 +16,36 @@ import org.slf4j.LoggerFactory;
 public class FetchProductScheduler implements Runnable{
 
     @Reference
-    ApiService apiService;
+    private ApiService apiService;
+    @Reference
+    private Scheduler scheduler;
     private final Logger logger = LoggerFactory.getLogger(getClass());
+    private SchedulerConfig config;
 
     @Activate
     protected void active(SchedulerConfig config)  {
         logger.info("active");
-
     }
-
+//    private void getAllData(SchedulerConfig config){
+//        ScheduleOptions scheduleOptions = scheduler.EXPR(config.cron_expression());
+//        scheduleOptions.canRunConcurrently(false);
+//        scheduler.schedule(this,scheduleOptions);
+//        try {
+//            apiService.fetchDataAndCreatePages();
+//            logger.info("api called");
+//        } catch (Exception e) {
+//            throw new RuntimeException(e);
+//        }
+//    }
     @Override
     public void run() {
-        logger.info("Custom Scheduler added");
+        logger.info("scheduler is running");
         try {
             apiService.fetchDataAndCreatePages();
+            logger.info("api called");
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
-
+//        getAllData(config);
     }
 }
