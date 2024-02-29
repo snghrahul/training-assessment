@@ -7,6 +7,7 @@ import com.google.gson.Gson;
 import com.training.aem.core.Constant.CommonConstant;
 import com.training.aem.core.bean.AlertContentFragmentEntity;
 import com.training.aem.core.services.ContentFragmentService;
+import org.apache.http.HttpStatus;
 import org.apache.sling.api.SlingHttpServletRequest;
 import org.apache.sling.api.SlingHttpServletResponse;
 import org.apache.sling.api.resource.LoginException;
@@ -15,6 +16,8 @@ import org.apache.sling.api.servlets.HttpConstants;
 import org.apache.sling.api.servlets.SlingSafeMethodsServlet;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.servlet.Servlet;
 import javax.servlet.ServletException;
@@ -24,25 +27,21 @@ import java.util.List;
 @Component(service = {Servlet.class},property = {
         CommonConstant.SLING_SERVLET_PATH + "/bin/getAllContentFragments",
         CommonConstant.SLING_SERVLET_METHOD + HttpConstants.METHOD_GET
-
 })
 public class AlertContentFragmentServlet extends SlingSafeMethodsServlet {
     @Reference
     ContentFragmentService contentFragmentService;
+    private static final Logger logger = LoggerFactory.getLogger(AlertContentFragmentServlet.class);
     @Override
     protected void doGet(SlingHttpServletRequest request, SlingHttpServletResponse response) throws ServletException, IOException {
-        String parentPath = "/content/dam/training-project/content-fragment";
         try {
             List<AlertContentFragmentEntity> contents = contentFragmentService.getContentFragmentData();
             Gson gson = new Gson();
             String json = gson.toJson(contents);
             response.getWriter().write(json);
-//            new ObjectMapper().writeValue(response.getOutputStream(), contents);
         } catch (LoginException e) {
-            throw new RuntimeException(e);
+            logger.error("Unable to obtain resource resolver : {}" + e.getMessage());
+            response.setStatus(HttpStatus.SC_BAD_REQUEST);
         }
-
-
-
     }
 }

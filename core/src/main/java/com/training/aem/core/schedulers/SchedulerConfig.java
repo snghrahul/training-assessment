@@ -15,7 +15,7 @@ public @interface SchedulerConfig {
     @AttributeDefinition(name = "Cron name",
             description = "Cron Expression used by scheduler",
             type = AttributeType.STRING)
-    public String cron_expression() default "0/10 * * * * ?";
+    public String cron_expression() default "";
 
 }
 

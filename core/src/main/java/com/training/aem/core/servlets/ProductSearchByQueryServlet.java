@@ -30,13 +30,10 @@ import java.util.Map;
 @Component(service = {Servlet.class},
                       property = {"sling.servlet.paths=" + "/bin/search",
                               "sling.servlet.methods=" + HttpConstants.METHOD_GET
-
 })
 public class ProductSearchByQueryServlet extends SlingAllMethodsServlet {
-
     @Reference
     ResourceResolverFactory resourceResolverFactory;
-
     @Override
     protected void doGet(SlingHttpServletRequest request,SlingHttpServletResponse response) throws ServletException, IOException {
         List<String> suggestions;
@@ -49,13 +46,10 @@ public class ProductSearchByQueryServlet extends SlingAllMethodsServlet {
                 throw new RuntimeException(e);
             }
             response.getWriter().write(suggestions.toString());
-
         }
-
     }
     private List<String> performSearch(ResourceResolver resourceResolver,String query) throws RepositoryException, LoginException {
         List<String> suggestions = new ArrayList<>();
-//        resourceResolver = getResourceResolver();
         QueryBuilder queryBuilder = resourceResolver.adaptTo(QueryBuilder.class);
         Map<String,Object> queryParams = new HashMap<>();
         queryParams.put("type","dam:Assets");
@@ -66,7 +60,6 @@ public class ProductSearchByQueryServlet extends SlingAllMethodsServlet {
         Query query1 = queryBuilder.createQuery(PredicateGroup.create(queryParams),resourceResolver.adaptTo(Session.class));
         SearchResult result = query1.getResult();
         Resource resource = null;
-
         for(Hit hit : result.getHits()){
             String path = hit.getPath();
             resource = resourceResolver.getResource(path);

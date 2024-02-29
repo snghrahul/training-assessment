@@ -34,8 +34,8 @@ public class AuthorGroupServiceImpl implements AuthorGroupService{
                         while(members.hasNext()){
                             Authorizable member = members.next();
                             if(member != null && !member.isGroup()){
-
                                 memberslIst.add(member.getID());
+
                             }
                         }
                     }
