@@ -15,10 +15,10 @@
                         jcr:primaryType="nt:unstructured"
                         sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
                         fieldLabel="Enter your Question here"
-                        name="./question">
+                        name="./text">
                         <granite:rendercondition
                             jcr:primaryType="nt:unstructured"
-                            sling:resourceType="training-project/user-group"
+                            sling:resourceType="training-project/renderconditions/user-group"
                             group="content-authors"/>
                     </question>
                 </items>
