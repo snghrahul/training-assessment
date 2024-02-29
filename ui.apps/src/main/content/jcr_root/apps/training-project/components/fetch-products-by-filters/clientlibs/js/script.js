@@ -3,7 +3,6 @@ $(document).ready(function() {
 
     // Event listener for #ascending button
     $('#lowToHighBtn').click(function() {
-      console.log("ajfgjagfjkasjk");
       filterProducts("ascending");
     });
   

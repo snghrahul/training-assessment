@@ -5,14 +5,12 @@ import com.training.aem.core.bean.ExcelRowDataEntity;
 import com.training.aem.core.services.ExcelProcessingWorkflowService;
 import com.training.aem.core.services.NodeCreationService;
 import opennlp.tools.util.InvalidFormatException;
+import org.apache.commons.lang.ObjectUtils;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.usermodel.WorkbookFactory;
-import org.apache.sling.api.resource.LoginException;
-import org.apache.sling.api.resource.Resource;
-import org.apache.sling.api.resource.ResourceResolver;
-import org.apache.sling.api.resource.ResourceResolverFactory;
+import org.apache.sling.api.resource.*;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
@@ -58,9 +56,16 @@ public class ExcelProcessingWorkflowServiceImpl implements ExcelProcessingWorkfl
             Resource fileResource = resourceResolver.getResource(filePath);
             Asset asset = fileResource.adaptTo(Asset.class);
             return asset != null ? asset.getOriginal().getStream() : null;
-
-        } catch (LoginException e) {
-            throw new RuntimeException(e);
+        } catch (LoginException | ResourceNotFoundException | NullPointerException exception) {
+            String errorMessage;
+            if(exception instanceof LoginException){
+                errorMessage = "Unable to obtain resource resolver" + ((LoginException) exception).getMessage();
+            } else if (exception instanceof ResourceNotFoundException) {
+                errorMessage = "Resource Not found at given path: " + ((ResourceNotFoundException) exception).getMessage();
+            }else {
+                errorMessage = "Null resource encuntered at path: " + ((NullPointerException) exception).getMessage();
+            }
+            throw new RuntimeException(errorMessage, exception);
         } finally {
             if (resourceResolver != null && resourceResolver.isLive()) {
                 resourceResolver.close();

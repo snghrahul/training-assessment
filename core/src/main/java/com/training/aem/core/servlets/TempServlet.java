@@ -31,9 +31,9 @@ public class TempServlet extends SlingAllMethodsServlet {
 
     @Override
     protected void doGet(SlingHttpServletRequest request, SlingHttpServletResponse response) throws ServletException, IOException {
+        response.getWriter().write("heyy");
         String folderPath = "/content/dam/training-project/temp.xlsx";
         List<ExcelRowDataEntity> rowDataEntityList = excelProcessingWorkflowService.processExcelFile(folderPath);
         nodeCreationService.CreateNodeFromExcel(rowDataEntityList);
-        response.getWriter().write("heyy");
     }
 }
