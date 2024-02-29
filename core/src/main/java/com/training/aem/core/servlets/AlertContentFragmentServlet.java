@@ -7,6 +7,7 @@ import com.google.gson.Gson;
 import com.training.aem.core.Constant.CommonConstant;
 import com.training.aem.core.bean.AlertContentFragmentEntity;
 import com.training.aem.core.services.ContentFragmentService;
+import org.apache.http.HttpStatus;
 import org.apache.sling.api.SlingHttpServletRequest;
 import org.apache.sling.api.SlingHttpServletResponse;
 import org.apache.sling.api.resource.LoginException;
@@ -15,6 +16,8 @@ import org.apache.sling.api.servlets.HttpConstants;
 import org.apache.sling.api.servlets.SlingSafeMethodsServlet;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.servlet.Servlet;
 import javax.servlet.ServletException;
@@ -28,6 +31,7 @@ import java.util.List;
 public class AlertContentFragmentServlet extends SlingSafeMethodsServlet {
     @Reference
     ContentFragmentService contentFragmentService;
+    private static final Logger logger = LoggerFactory.getLogger(AlertContentFragmentServlet.class);
     @Override
     protected void doGet(SlingHttpServletRequest request, SlingHttpServletResponse response) throws ServletException, IOException {
         try {
@@ -36,9 +40,8 @@ public class AlertContentFragmentServlet extends SlingSafeMethodsServlet {
             String json = gson.toJson(contents);
             response.getWriter().write(json);
         } catch (LoginException e) {
-            String errorMessage;
-            errorMessage = "Unable to obtain resource resolver" + e.getMessage();
-            throw new RuntimeException(errorMessage,e);
+            logger.error("Unable to obtain resource resolver : {}" + e.getMessage());
+            response.setStatus(HttpStatus.SC_BAD_REQUEST);
         }
     }
 }
