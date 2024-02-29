@@ -6,8 +6,10 @@
 //import com.training.aem.core.utils.CommonUtils;
 //import io.wcm.testing.mock.aem.junit5.AemContextExtension;
 //import org.apache.commons.lang3.StringUtils;
+//import org.apache.http.HttpEntity;
 //import org.apache.http.client.methods.CloseableHttpResponse;
 //import org.apache.http.client.methods.HttpGet;
+//import org.apache.http.client.methods.HttpUriRequest;
 //import org.apache.http.impl.client.CloseableHttpClient;
 //import org.apache.http.impl.client.HttpClients;
 //import org.apache.sling.api.SlingHttpServletRequest;
@@ -34,10 +36,12 @@
 //    @InjectMocks
 //    private ProductServiceImpl productService;
 //    @Mock
-//    CloseableHttpResponse closeableHttpResponse;
+//    CloseableHttpResponse httpResponse;
 //
 //    @Mock
 //    CloseableHttpClient httpClient;
+//    @Mock
+//    HttpEntity httpEntity;
 //
 //    @BeforeEach
 //    void setUp() {
@@ -57,10 +61,10 @@
 //        HttpGet httpGet = new HttpGet(apiUrl);
 //
 //
-//        productService.getFakeApiData(apiUrl);
 //        when(HttpClients.createDefault()).thenReturn(httpClient);
-//        when(httpClient.execute(httpGet)).thenReturn(closeableHttpResponse);
-//
+//        when(httpClient.execute(any(HttpUriRequest.class))).thenReturn(httpResponse);
+//        when(httpResponse.getEntity()).thenReturn(httpEntity);
+//        productService.getFakeApiData(apiUrl);
 //
 //
 //
