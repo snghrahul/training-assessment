@@ -13,6 +13,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -22,8 +23,9 @@ import static org.mockito.Mockito.when;
 @ExtendWith({AemContextExtension.class, MockitoExtension.class})
 class ProductInfoByRequestParamsModelImplTest {
 
-    AemContext aemContext;
+    AemContext aemContext = new AemContext();
     @InjectMocks
+    @Spy
     ProductInfoByRequestParamsModelImpl productInfoByRequestParamsModel;
     @Mock
     ProductInfoService productInfoService;
@@ -40,18 +42,18 @@ class ProductInfoByRequestParamsModelImplTest {
     @Test
     void init() throws Exception {
         ProductDetailsEntity productDetails = new ProductDetailsEntity();
+        productDetails.setId(1);
+        productDetails.setPrice(890);
+        productDetails.setCategory("clothes");
         String urlSuffix = "heyy";
         when(request.getRequestPathInfo()).thenReturn(pathInfo);
         when(pathInfo.getSuffix()).thenReturn(urlSuffix);
-        when(urlSuffix.substring(1));
-        when(productInfoService.getProductInfo("1")).thenReturn(productDetails);
+        when(productInfoService.getProductInfo("eyy")).thenReturn(productDetails);
         productInfoByRequestParamsModel.init();
-
-
-
     }
 
     @Test
     void getProductDetails() {
+        productInfoByRequestParamsModel.getProductDetails();
     }
 }
