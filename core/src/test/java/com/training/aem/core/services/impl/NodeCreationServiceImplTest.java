@@ -15,12 +15,14 @@ import org.mockito.Mock;
 import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import javax.jcr.Node;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 @ExtendWith({AemContextExtension.class, MockitoExtension.class})
@@ -38,18 +40,24 @@ class NodeCreationServiceImplTest {
 
     @BeforeEach
     void setUp() {
-        nodeCreationService = new NodeCreationServiceImpl();
         aemContext = new AemContext();
     }
 
     @Test
     void createNodeFromExcel() throws LoginException {
+        Node parentNode  = mock(Node.class);
+        ExcelRowDataEntity excelRowDataEntity = new ExcelRowDataEntity();
+        excelRowDataEntity.setColumn1("columnName2");
+        excelRowDataEntity.setColumn2(882);
         List<ExcelRowDataEntity> rowDataEntityList= new ArrayList<>();
-        rowDataEntityList.add(new ExcelRowDataEntity("value1",789));
+        rowDataEntityList.add(excelRowDataEntity);
+       // rowDataEntityList.add(new ExcelRowDataEntity("columnName2",789));
         Map<String, Object> map  = new HashMap<>();
         map.put(ResourceResolverFactory.SUBSERVICE,"rahul");
         when(resourceResolverFactory.getServiceResourceResolver(map)).thenReturn(resourceResolver);
-        when(resourceResolver.getResource("abc.com")).thenReturn(resource);
+        aemContext.registerService(ResourceResolverFactory.class,resourceResolverFactory);
+        when(resourceResolver.getResource("/content/training-project")).thenReturn(resource);
+        when(resource.adaptTo(Node.class)).thenReturn(parentNode);
         nodeCreationService.CreateNodeFromExcel(rowDataEntityList);
     }
 

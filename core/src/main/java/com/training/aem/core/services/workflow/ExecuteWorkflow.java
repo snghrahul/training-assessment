@@ -36,7 +36,7 @@ public class ExecuteWorkflow implements WorkflowProcess{
         String path = "";
         if(StringUtils.equals(payloadType,"JCR_PATH")){
             logger.error("Payload type {}", payloadType);
-            path = workItem.getWorkflowData().getPayload().toString();
+            path = payloadType.toString();
         }
 
         String args = metaDataMap.get("PROCESS_ARGS",String.class);
