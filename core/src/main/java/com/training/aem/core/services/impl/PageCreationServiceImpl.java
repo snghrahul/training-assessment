@@ -39,22 +39,17 @@ public class PageCreationServiceImpl implements PageCreationService{
 
     private final Logger logger = LoggerFactory.getLogger(ApiServiceImpl.class);
     @Override
-    public void createPages(ProductDetailsEntity data) throws PersistenceException {
+    public void createPages()  {
         createPage(CommonConstant.CONTENT_TRAINING_PROJECT_US,"page1", CommonConstant.TEMPLATE_PATH, null);
     }
-
-    private void createPage(String parentPath, String pageName, String templatePath,ResourceResolver resourceResolver) throws PersistenceException {
-
+    private void createPage(String parentPath, String pageName, String templatePath,ResourceResolver resourceResolver)  {
         final Logger logger = LoggerFactory.getLogger(PageCreationService.class);
-
         try{
             resourceResolver = getResourceResolver();
-
             Resource parentResource = resourceResolver.getResource(parentPath);
             if(parentResource == null){
                 logger.error("Parent path does not exist");
             }else {
-//              String pagePath = parentPath + "/" + pageName;
                 PageManager pageManager = resourceResolver.adaptTo(PageManager.class);
                 Page newPage = pageManager.create(parentPath,pageName,templatePath,"page created",true);
                 if(newPage != null){
@@ -67,7 +62,6 @@ public class PageCreationServiceImpl implements PageCreationService{
             throw new RuntimeException(e);
         }
     }
-
     private void managePageActivation(Session session, String path){
         try{
             if (session != null){
@@ -83,5 +77,4 @@ public class PageCreationServiceImpl implements PageCreationService{
         map.put(ResourceResolverFactory.SUBSERVICE,"rahul");
         return resourceResolverFactory.getServiceResourceResolver(map);
     }
-
 }
