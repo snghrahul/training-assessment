@@ -1,6 +1,7 @@
 package com.training.aem.core.services.impl;
 
-import com.training.aem.core.bean.ExcelRowDataEntity;
+import com.adobe.cq.dam.cfm.ContentFragment;
+import com.training.aem.core.bean.AlertContentFragmentEntity;
 import io.wcm.testing.mock.aem.junit5.AemContext;
 import io.wcm.testing.mock.aem.junit5.AemContextExtension;
 import org.apache.sling.api.resource.LoginException;
@@ -12,53 +13,54 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import javax.jcr.Node;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
+import java.util.Iterator;
 import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 @ExtendWith({AemContextExtension.class, MockitoExtension.class})
-class NodeCreationServiceImplTest {
-    AemContext aemContext;
+class ContentFragmentServiceImplTest {
+    AemContext aemContext = new AemContext();
+    @InjectMocks
+    ContentFragmentServiceImpl contentFragmentService;
+    @Mock
+    ResourceResolverFactory resourceResolverFactory;
     @Mock
     ResourceResolver resourceResolver;
     @Mock
-    ResourceResolverFactory resourceResolverFactory;
-    @InjectMocks
-    @Spy
-    NodeCreationServiceImpl nodeCreationService;
-    @Mock
     Resource resource;
+    @Mock
+    Resource childResource;
+    @Mock
+    Iterator<Resource> allchildResource;
+    @Mock
+    ContentFragment contentFragment;
 
     @BeforeEach
     void setUp() {
-        aemContext = new AemContext();
+        aemContext.addModelsForClasses(ContentFragmentServiceImpl.class);
     }
 
     @Test
-    void createNodeFromExcel() throws LoginException {
-        Node parentNode  = mock(Node.class);
-        ExcelRowDataEntity excelRowDataEntity = new ExcelRowDataEntity();
-        excelRowDataEntity.setColumn1("columnName2");
-        excelRowDataEntity.setColumn2(882);
-        List<ExcelRowDataEntity> rowDataEntityList= new ArrayList<>();
-        rowDataEntityList.add(excelRowDataEntity);
-       // rowDataEntityList.add(new ExcelRowDataEntity("columnName2",789));
+    void getContentFragmentData() throws LoginException {
+        AlertContentFragmentEntity entityCF = new AlertContentFragmentEntity();
         Map<String, Object> map  = new HashMap<>();
         map.put(ResourceResolverFactory.SUBSERVICE,"rahul");
         when(resourceResolverFactory.getServiceResourceResolver(map)).thenReturn(resourceResolver);
-        aemContext.registerService(ResourceResolverFactory.class,resourceResolverFactory);
-        when(resourceResolver.getResource("/content/training-project")).thenReturn(resource);
-        when(resource.adaptTo(Node.class)).thenReturn(parentNode);
-        nodeCreationService.CreateNodeFromExcel(rowDataEntityList);
+        when(resourceResolver.getResource("/content/dam/training-project/content-fragment")).thenReturn(resource);
+        when(resource.listChildren()).thenReturn(allchildResource);
+        when(allchildResource.next()).thenReturn(childResource);
+        when(childResource.adaptTo(ContentFragment.class)).thenReturn(contentFragment);
+        entityCF.setTitle("title");
+        entityCF.setMessage("message");
+
+
+        contentFragmentService.getContentFragmentData();
+
     }
 
     @Test

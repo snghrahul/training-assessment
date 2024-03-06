@@ -23,10 +23,7 @@ public class SendEmailNotificationJob implements JobConsumer{
     MessageGatewayService messageGatewayService;
     @Override
     public JobResult process(Job job) {
-        String pagePath = (String) job.getProperty("pagePath");
-        String pageTitle = (String) job.getProperty("pageTitle");
         String adminEmail = "snghrahul09@gmail.com";
-
         String subject = "New Page Created";
         String msgBody = "A new page has been created : ";
         try {
@@ -34,7 +31,6 @@ public class SendEmailNotificationJob implements JobConsumer{
         } catch (EmailException e) {
             throw new RuntimeException(e);
         }
-
         return null;
     }
     public void sendEmail(String subject, String msgBody, String adminEmail) throws EmailException {
@@ -42,14 +38,12 @@ public class SendEmailNotificationJob implements JobConsumer{
         email.addTo(adminEmail);
         email.setSubject(subject);
         email.setMsg(msgBody);
-        MessageGateway<Email> messageGateway = messageGatewayService.getGateway(HtmlEmail.class);
+        MessageGateway<Email> messageGateway = messageGatewayService.getGateway(Email.class);
         if(messageGateway != null){
             log.debug("sending out email");
-            messageGateway.send((Email) email);
-
+            messageGateway.send(email);
         }else {
             log.error("The message gateway could not be retrieved");
         }
-
     }
 }
