@@ -32,6 +32,6 @@ class ContentFragmentModelImplTest {
     }
     @Test
     void getAllContentFragment() throws LoginException {
-        contentFragmentModel.getAllContentFragment();
+        contentFragmentModel.getAllContentFragments();
     }
 }
