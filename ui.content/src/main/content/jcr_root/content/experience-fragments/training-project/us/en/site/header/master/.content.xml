@@ -29,6 +29,7 @@
                 jcr:primaryType="nt:unstructured"
                 sling:resourceType="training-project/components/search"
                 searchRoot="/content/training-project/us"/>
+            <logo/>
         </root>
     </jcr:content>
 </jcr:root>

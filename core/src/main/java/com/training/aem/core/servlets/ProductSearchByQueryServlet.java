@@ -57,9 +57,10 @@ public class ProductSearchByQueryServlet extends SlingAllMethodsServlet {
         queryParams.put("fulltext",query + "*");
         queryParams.put("p.limit","-1");
 
+
         Query query1 = queryBuilder.createQuery(PredicateGroup.create(queryParams),resourceResolver.adaptTo(Session.class));
         SearchResult result = query1.getResult();
-        Resource resource = null;
+        Resource resource;
         for(Hit hit : result.getHits()){
             String path = hit.getPath();
             resource = resourceResolver.getResource(path);

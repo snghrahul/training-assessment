@@ -13,6 +13,7 @@ import org.apache.sling.api.SlingHttpServletResponse;
 import org.apache.sling.api.resource.LoginException;
 import org.apache.sling.api.resource.ResourceResolver;
 import org.apache.sling.api.servlets.HttpConstants;
+import org.apache.sling.api.servlets.SlingAllMethodsServlet;
 import org.apache.sling.api.servlets.SlingSafeMethodsServlet;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
@@ -26,18 +27,20 @@ import java.util.List;
 
 @Component(service = {Servlet.class},property = {
         CommonConstant.SLING_SERVLET_PATH + "/bin/getAllContentFragments",
-        CommonConstant.SLING_SERVLET_METHOD + HttpConstants.METHOD_GET
+        CommonConstant.SLING_SERVLET_METHOD + HttpConstants.METHOD_GET,
+        CommonConstant.SLING_SERVLET_METHOD + HttpConstants.METHOD_POST
 })
-public class AlertContentFragmentServlet extends SlingSafeMethodsServlet {
+public class AlertContentFragmentServlet extends SlingAllMethodsServlet {
     @Reference
     ContentFragmentService contentFragmentService;
     private static final Logger logger = LoggerFactory.getLogger(AlertContentFragmentServlet.class);
     @Override
     protected void doGet(SlingHttpServletRequest request, SlingHttpServletResponse response) throws ServletException, IOException {
         try {
-            List<AlertContentFragmentEntity> contents = contentFragmentService.getContentFragmentData();
+
+            List<AlertContentFragmentEntity> allContentFragments = contentFragmentService.getContentFragmentData();
             Gson gson = new Gson();
-            String json = gson.toJson(contents);
+            String json = gson.toJson(allContentFragments);
             response.getWriter().write(json);
         } catch (LoginException e) {
             logger.error("Unable to obtain resource resolver : {}" + e.getMessage());

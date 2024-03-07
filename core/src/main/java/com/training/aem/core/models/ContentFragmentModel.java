@@ -13,7 +13,7 @@ import java.util.List;
 
 
     public interface ContentFragmentModel {
-        List<AlertContentFragmentEntity>  getAllContentFragments();
+        List<AlertContentFragmentEntity>  getAllContentFragments() throws LoginException;
 
 
 }
