@@ -4,8 +4,6 @@ import com.day.cq.dam.api.Asset;
 import com.training.aem.core.bean.ExcelRowDataEntity;
 import com.training.aem.core.services.ExcelProcessingWorkflowService;
 import com.training.aem.core.services.NodeCreationService;
-import opennlp.tools.util.InvalidFormatException;
-import org.apache.commons.lang.ObjectUtils;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
@@ -13,21 +11,21 @@ import org.apache.poi.ss.usermodel.WorkbookFactory;
 import org.apache.sling.api.resource.*;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-import javax.jcr.Node;
+
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InvalidClassException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @Component(service = {ExcelProcessingWorkflowService.class})
 public class ExcelProcessingWorkflowServiceImpl implements ExcelProcessingWorkflowService{
 
     @Reference
     private NodeCreationService nodeCreationService;
+    private static final Logger logger = LoggerFactory.getLogger(ExcelProcessingWorkflowServiceImpl.class);
 
     @Override
     public List<ExcelRowDataEntity> processExcelFile(String filePath) {
@@ -46,6 +44,7 @@ public class ExcelProcessingWorkflowServiceImpl implements ExcelProcessingWorkfl
             }
         }catch (IOException e){
             e.getMessage();
+            logger.error("path does not exist:{} ",e.getMessage() );
         }
         return rowDataEntityList;
     }

@@ -4,5 +4,5 @@ import com.training.aem.core.bean.ProductDetailsEntity;
 import org.apache.sling.api.resource.PersistenceException;
 
 public interface PageCreationService {
-    void createPages(ProductDetailsEntity data) throws PersistenceException;
+    void createPages() ;
 }

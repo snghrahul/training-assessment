@@ -1,8 +1,45 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0" xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0" xmlns:nt="http://www.jcp.org/jcr/nt/1.0"
     jcr:primaryType="cq:Page">
+    <uk/>
+    <node_1709206888436
+        jcr:primaryType="nt:unstructured"
+        columnName1="Richard"
+        columnName2="{Double}100.0"/>
+    <node_1709206888453
+        jcr:primaryType="nt:unstructured"
+        columnName1="Enrique"
+        columnName2="{Double}200.0"/>
+    <node_1709206888454
+        jcr:primaryType="nt:unstructured"
+        columnName1="Ed"
+        columnName2="{Double}300.0"/>
+    <node_1709207305669
+        jcr:primaryType="nt:unstructured"
+        columnName1="Richard"
+        columnName2="{Double}100.0"/>
+    <node_1709207305688
+        jcr:primaryType="nt:unstructured"
+        columnName1="Enrique"
+        columnName2="{Double}200.0"/>
+    <node_1709207305689
+        jcr:primaryType="nt:unstructured"
+        columnName1="Ed"
+        columnName2="{Double}300.0"/>
+    <node_1709274631383
+        jcr:primaryType="nt:unstructured"
+        columnName1="Richard"
+        columnName2="{Double}100.0"/>
+    <node_1709274631583
+        jcr:primaryType="nt:unstructured"
+        columnName1="Enrique"
+        columnName2="{Double}200.0"/>
+    <node_1709274631599
+        jcr:primaryType="nt:unstructured"
+        columnName1="Ed"
+        columnName2="{Double}300.0"/>
     <jcr:content
-        cq:allowedTemplates="[/conf/training-project/settings/wcm/templates/(?!xf-).*]"
+        cq:allowedTemplates="[/conf/training-project/settings/wcm/templates/(?!xf-).*,/apps/training-project/template/.*]"
         cq:conf="/conf/training-project"
         cq:redirectTarget="/content/training-project/us/en"
         cq:template="/conf/training-project/settings/wcm/templates/page-content"

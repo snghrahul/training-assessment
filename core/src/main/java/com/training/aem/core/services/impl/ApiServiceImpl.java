@@ -33,6 +33,6 @@ public class ApiServiceImpl implements ApiService {
     @Override
     public void fetchDataAndCreatePages() throws Exception {
         ProductDetailsEntity productDetails = productService.getFakeApiData("https://fakestoreapi.com/products/1");
-        pageCreationService.createPages(productDetails);
+        pageCreationService.createPages();
     }
 }

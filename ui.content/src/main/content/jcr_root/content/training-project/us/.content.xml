@@ -1,11 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0" xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0"
     jcr:primaryType="cq:Page">
+    <page1/>
+    <page10/>
+    <page11/>
+    <page12/>
+    <page13/>
+    <ca-config/>
     <jcr:content
+        cq:lastModified="{Date}2024-02-27T17:29:14.758+05:30"
+        cq:lastModifiedBy="admin"
         cq:redirectTarget="/content/training-project/us/en"
         cq:template="/conf/training-project/settings/wcm/templates/page-content"
         jcr:primaryType="cq:PageContent"
         jcr:title="us"
-        sling:resourceType="training-project/components/page"/>
+        sling:configRef="/conf/training-project/sling:configs/us"
+        sling:resourceType="training-project/components/page"
+        path="&lt;script> alert(&quot;hey parent page is called&quot;)&lt;/script>"/>
     <en/>
 </jcr:root>
