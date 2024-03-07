@@ -36,4 +36,12 @@ public class TempServlet extends SlingAllMethodsServlet {
         List<ExcelRowDataEntity> rowDataEntityList = excelProcessingWorkflowService.processExcelFile(folderPath);
         nodeCreationService.CreateNodeFromExcel(rowDataEntityList);
     }
+
+    @Override
+    protected void doPost(SlingHttpServletRequest request, SlingHttpServletResponse response) throws ServletException, IOException {
+        String name = request.getParameter("name");
+
+
+
+    }
 }
