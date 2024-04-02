@@ -101,6 +101,28 @@
                     </execution>
                 </executions>
             </plugin>
+
+            <plugin>
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
+                <version>0.8.9</version>
+                <executions>
+                    <execution>
+                        <id>jacoco-initialize</id>
+                        <goals>
+                            <goal>prepare-agent</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>jacoco-site</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>report</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
             <!-- Maven Compiler Plugin -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -409,6 +431,17 @@ Bundle-DocURL:
                 <releaseRepository-Id>adobe-public-releases</releaseRepository-Id>
                 <releaseRepository-Name>Adobe Public Releases</releaseRepository-Name>
                 <releaseRepository-URL>https://repo.adobe.com/nexus/content/groups/public</releaseRepository-URL>
+
+                <!-- JaCoCo Properties -->
+                <jacoco.version>0.8.10</jacoco.version>
+
+                <!-- Sonar Properties -->
+                <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+                <sonar.exclusions>src/**/tests/**/*</sonar.exclusions>
+                <sonar.java.coveragePlugin>jacoco</sonar.java.coveragePlugin>
+                <sonar.coverage.jacoco.xmlReportPaths>${project.basedir}/../target/jacoco/jacoco.xml</sonar.coverage.jacoco.xmlReportPaths>
+                <sonar.language>java</sonar.language>
+                <sonar.dynamic>reuseReports</sonar.dynamic>
             </properties>
 
             <repositories>

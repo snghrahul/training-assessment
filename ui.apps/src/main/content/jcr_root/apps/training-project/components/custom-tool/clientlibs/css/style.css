@@ -1,0 +1,67 @@
+/* Style for dropdown container */
+#checkboxContainer {
+    margin-top: 10px; /* Adjust margin as needed */
+}
+
+/* Style for select element */
+#pagesDropdown {
+    width: 200px; /* Adjust width as needed */
+    padding: 5px; /* Adjust padding as needed */
+    font-size: 16px; /* Adjust font size as needed */
+}
+
+/* Style for dropdown options */
+#pagesDropdown option {
+    padding: 5px; /* Adjust padding as needed */
+}
+
+#checkboxContainer {
+    margin-top: 10px; /* Adjust margin as needed */
+}
+
+/* Style for select element */
+#projectDropdown {
+    width: 200px; /* Adjust width as needed */
+    padding: 5px; /* Adjust padding as needed */
+    font-size: 16px; /* Adjust font size as needed */
+}
+
+/* Style for dropdown options */
+#projectDropdown option {
+    padding: 5px; /* Adjust padding as needed */
+}
+
+.maindiv{
+    margin-left: 30rem;
+}
+
+
+/* Button styles */
+.button {
+    display: inline-block;
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    text-align: center;
+    text-decoration: none;
+    border: 2px solid #007bff; /* Border color */
+    color: #007bff; /* Text color */
+    background-color: transparent; /* Transparent background */
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+    margin-top:  1rem;
+}
+
+/* Hover styles */
+.button:hover {
+    background-color: #007bff; /* Background color on hover */
+    color: #fff; /* Text color on hover */
+}
+
+/* Active styles */
+.button:active {
+    background-color: #0056b3; /* Background color when button is clicked */
+    border-color: #0056b3; /* Border color when button is clicked */
+}
+

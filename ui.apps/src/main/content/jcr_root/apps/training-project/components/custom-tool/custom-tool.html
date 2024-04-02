@@ -1,0 +1,16 @@
+
+<sly data-sly-use.clientlib="/libs/granite/sightly/templates/clientlib.html">
+    <sly data-sly-call="${clientlib.all @ categories='custom-tool'}"/>
+</sly>
+
+<h1>Hello </h1>
+<div class="maindiv">
+<select id="projectDropdown">
+  <sly data-sly-use.model="com.training.aem.core.models.CustomToolPages">
+    <div data-sly-list.pagesList="${model.pagesList}">
+  <option value="${pagesList}"> ${pagesList}</option>
+</select>
+<div id="checkboxContainer"></div>
+
+<a  class="button" id="fetchDataButton">Fetch Data </a>
+</div>
