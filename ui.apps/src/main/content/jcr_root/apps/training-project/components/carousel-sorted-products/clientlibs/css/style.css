@@ -1,0 +1,40 @@
+/* Style for carousel */
+.carousel-item {
+  text-align: center;
+}
+
+.carousel-item img {
+  max-width: 100%;
+  height: auto;
+  margin: 0 auto;
+}
+
+.carousel-control-prev-icon, .carousel-control-next-icon {
+  background-color: rgba(0, 0, 0, 0.5); /* Change background color of carousel control icons */
+}
+
+.carousel-control-prev, .carousel-control-next {
+  width: 5%; /* Adjust width of control buttons */
+}
+
+.carousel-control-prev-icon, .carousel-control-next-icon {
+  width: 20px; /* Adjust size of control icons */
+  height: 20px;
+}
+
+/* Style for carousel indicators (dots) */
+.carousel-indicators {
+  bottom: 10px; /* Adjust position of indicators */
+}
+
+.carousel-indicators li {
+  background-color: rgba(0, 0, 0, 0.5); /* Change color of indicator dots */
+  border: none;
+  border-radius: 50%; /* Make indicator dots round */
+  width: 10px; /* Adjust size of indicator dots */
+  height: 10px;
+}
+
+.carousel-indicators .active {
+  background-color: rgba(0, 0, 0, 0.9); /* Change color of active indicator dot */
+}

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0" xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0" xmlns:nt="http://www.jcp.org/jcr/nt/1.0"
+    jcr:primaryType="cq:Page">
+    <jcr:content
+        cq:contextHubPath="/etc/cloudsettings/default/contexthub"
+        cq:contextHubSegmentsPath="/etc/segmentation/contexthub"
+        cq:lastModified="{Date}2024-02-29T11:44:40.772+05:30"
+        cq:lastModifiedBy="admin"
+        cq:template="/conf/training-project/settings/wcm/templates/page-content"
+        jcr:primaryType="cq:PageContent"
+        jcr:title="FAQ"
+        sling:resourceType="training-project/components/page"
+        productId="7">
+        <root
+            jcr:primaryType="nt:unstructured"
+            sling:resourceType="training-project/components/container"
+            layout="responsiveGrid">
+            <container
+                jcr:primaryType="nt:unstructured"
+                sling:resourceType="training-project/components/container"
+                layout="responsiveGrid">
+                <title
+                    jcr:primaryType="nt:unstructured"
+                    sling:resourceType="training-project/components/title"/>
+                <container
+                    jcr:primaryType="nt:unstructured"
+                    sling:resourceType="training-project/components/container"
+                    layout="responsiveGrid">
+                    <product_details
+                        jcr:created="{Date}2024-02-27T18:54:40.794+05:30"
+                        jcr:createdBy="admin"
+                        jcr:lastModified="{Date}2024-02-27T18:54:40.794+05:30"
+                        jcr:lastModifiedBy="admin"
+                        jcr:primaryType="nt:unstructured"
+                        sling:resourceType="training-project/components/product-details"/>
+                </container>
+            </container>
+        </root>
+    </jcr:content>
+</jcr:root>
