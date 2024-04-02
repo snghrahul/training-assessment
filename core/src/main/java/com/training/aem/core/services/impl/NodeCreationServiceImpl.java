@@ -16,7 +16,6 @@ import java.util.Map;
 
 @Component(service = {NodeCreationService.class})
 public class NodeCreationServiceImpl implements NodeCreationService{
-
     @Reference
     private ResourceResolverFactory resolverFactory;
     @Override
@@ -43,7 +42,6 @@ public class NodeCreationServiceImpl implements NodeCreationService{
             }
         }
         }
-
     @Override
     public ResourceResolver getResourceResolver() throws LoginException {
         Map<String, Object> map  = new HashMap<>();
