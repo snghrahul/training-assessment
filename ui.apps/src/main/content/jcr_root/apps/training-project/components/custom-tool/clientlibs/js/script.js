@@ -35,7 +35,7 @@ $(document).ready(function() {
         selectElement.append(option); 
     });
     selectElement.change(function() {
-      // Get the selected value from the dropdown
+     
       var selectedValue = $(this).val();
       originalPath += selectedValue + "/";
       console.log('Selected value:', originalPath);

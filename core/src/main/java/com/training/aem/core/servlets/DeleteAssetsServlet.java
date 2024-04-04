@@ -10,6 +10,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.jcr.Node;
+import javax.jcr.NodeIterator;
 import javax.jcr.RepositoryException;
 import javax.jcr.Session;
 import javax.servlet.Servlet;
@@ -33,7 +34,11 @@ public class DeleteAssetsServlet extends SlingAllMethodsServlet {
         if(session != null){
             try {
                 Node assetNode = session.getNode(path + assetPath);
-                assetNode.remove();
+                NodeIterator childNodes = assetNode.getNodes();
+                while (childNodes.hasNext()){
+                    Node currentChildNode = childNodes.nextNode();
+                    currentChildNode.remove();
+                }
                 session.save();
             } catch (RepositoryException e) {
                 throw new RuntimeException(e);

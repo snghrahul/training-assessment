@@ -36,6 +36,7 @@ public class OrphanAssetsImpl implements OrphanAssets{
         ReferenceSearch referenceSearch = new ReferenceSearch();
         queryMap.put("type","dam:Asset");
         queryMap.put("path",path);
+        queryMap.put("path.exact","true");
 
         Query query = queryBuilder.createQuery(PredicateGroup.create(queryMap),resourceResolver.adaptTo(Session.class));
         SearchResult result = query.getResult();
